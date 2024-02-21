@@ -73,7 +73,9 @@ class PokemonController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pokemon = Pokemon :: find($id);
+
+        return view('pokemon.edit', compact('pokemon'));
     }
 
     /**
@@ -83,9 +85,18 @@ class PokemonController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PokemonFormRequest $request, $id)
     {
-        //
+        $pokemon = Pokemon :: find($id);
+        $data = $request -> all();
+
+        $pokemon -> name = $data['name'];
+        $pokemon -> gender = $data['gender'];
+        $pokemon -> level = $data['level'];
+
+        $pokemon -> save();
+
+        return redirect() -> route('pokemon.show', $pokemon -> id);
     }
 
     /**
@@ -96,6 +107,9 @@ class PokemonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $pokemon = Pokemon :: find($id);
+        $pokemon -> delete();
+
+        return redirect() -> route('pokemon.index');
     }
 }

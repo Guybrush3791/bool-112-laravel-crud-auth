@@ -16,6 +16,19 @@
                     <a href="{{ route('pokemon.show', $pokemon -> id) }}">
                         {{ $pokemon -> name }}
                     </a>
+                    @auth
+                    - <a href="{{ route('pokemon.edit', $pokemon -> id) }}">EDIT</a>
+                    - <form
+                        action="{{ route('pokemon.delete', $pokemon -> id) }}"
+                        method="POST"
+                        style="display: inline-block"
+                    >
+                        @csrf
+                        @method("DELETE")
+
+                        <input type="submit" value="DELETE">
+                    </form>
+                    @endauth
                 </li>
             @endforeach
         </ul>

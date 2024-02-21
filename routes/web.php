@@ -33,10 +33,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // POKEMON
+    // -- CREATE
     Route :: get('/pokemon/create', [PokemonController :: class, 'create'])
         -> name('pokemon.create');
     Route :: post('/pokemon/create', [PokemonController :: class, 'store'])
         -> name('pokemon.store');
+
+    // -- EDIT
+    Route :: get('/pokemon/{id}/edit', [PokemonController :: class, 'edit'])
+        -> name('pokemon.edit');
+    Route :: put('/pokemon/{id}/edit', [PokemonController :: class, 'update'])
+        -> name('pokemon.update');
+
+    // -- DELETE
+    Route :: delete('/pokemon/{id}', [PokemonController :: class, 'destroy'])
+        -> name('pokemon.delete');
 });
 
 Route :: get('/pokemon/{id}', [PokemonController :: class, 'show'])
